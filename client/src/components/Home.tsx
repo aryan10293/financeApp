@@ -19,13 +19,13 @@ function Home() {
     //   <a href="/logout">Logout</a>
     // </div>
     const [open, setOpen] = React.useState<boolean>(false)
-    let display: string = 'inline-block'
+    const [display, setDisplay] = React.useState<string>('inline-block')
     const toggleMenu = () => {
         setOpen(!open)
         if(open){
-            display = 'none'
+            setDisplay('none')
         } else {
-            display = 'inline-block'
+            setDisplay('inline-block')
         }
     }
     let lol = 1000
@@ -42,10 +42,10 @@ function Home() {
       {open && (
         <div className="menu-items">
           {/* Your navigation bar items go here */}
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/services">Services</a>
-          <a href="/contact">Contact</a>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/services">Services</Link>
+          <Link to="/contact">Contact</Link>
         </div>
       )}
 
