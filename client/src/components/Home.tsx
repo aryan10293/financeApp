@@ -22,27 +22,23 @@ function Home() {
     const toggleMenu = () => {
         setOpen(!open)
     }
-    let lol = 1000
-    const transactions = [
-        { amount: 1000, date: "2023-10-13", company: "Company A" },
-        { amount: 1500, date: "2023-10-14", company: "Company B" },
-        { amount: 800, date: "2023-10-15", company: "Company C" }
-    ]
   return (
     <>
     <div className={`hamburger-icon`}  style={{ display: open ? 'none' : 'inline-block' }} onClick={toggleMenu}>
         ☰
       </div>
       {open && (
-        <div>X</div>
-      )}
-      {open && (
-        <div className="menu-items">
+        <div className="menu">
+            {open && (
+                <div onClick={toggleMenu} style={{color: 'white'}}>X</div>
+            )}
           {/* Your navigation bar items go here */}
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/services">Services</Link>
-          <Link to="/contact">Contact</Link>
+          <div className="menu-items">
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+            <Link to="/services">Services</Link>
+            <Link to="/contact">Contact</Link>
+          </div>
         </div>
       )}
 

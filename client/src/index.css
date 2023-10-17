@@ -43,12 +43,6 @@
   cursor: pointer;
   font-size: 24px;
 }
-.inline-block{
-  display: inline-block
-}
-.none {
-  display: none
-}
 .menu-items {
   display: flex;
   flex-direction: row;
@@ -58,11 +52,13 @@
   /* left: 10px; */
   background-color: #333;
   /* border-radius: 5px; */
-  gap: 30px;
+  gap: 30px; 
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 30px; 
+} 
+.menu{
+  display: flex;
 }
-
 .menu-items a {
   text-decoration: none;
   color: white;
