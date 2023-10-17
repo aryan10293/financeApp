@@ -19,14 +19,8 @@ function Home() {
     //   <a href="/logout">Logout</a>
     // </div>
     const [open, setOpen] = React.useState<boolean>(false)
-    const [display, setDisplay] = React.useState<string>('inline-block')
     const toggleMenu = () => {
         setOpen(!open)
-        if(open){
-            setDisplay('none')
-        } else {
-            setDisplay('inline-block')
-        }
     }
     let lol = 1000
     const transactions = [
@@ -36,9 +30,12 @@ function Home() {
     ]
   return (
     <>
-    <div className={`hamburger-icon ${display}`} onClick={toggleMenu}>
+    <div className={`hamburger-icon`}  style={{ display: open ? 'none' : 'inline-block' }} onClick={toggleMenu}>
         ☰
       </div>
+      {open && (
+        <div>X</div>
+      )}
       {open && (
         <div className="menu-items">
           {/* Your navigation bar items go here */}

@@ -51,13 +51,16 @@
 }
 .menu-items {
   display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0px;
+  flex-direction: row;
+  /* position: absolute; */
+  /* top: 0px; */
   /* Adjust the top position according to your design */
-  left: 10px;
+  /* left: 10px; */
   background-color: #333;
-  border-radius: 5px;
+  /* border-radius: 5px; */
+  gap: 30px;
+  justify-content: space-between;
+  padding: 0 30px;
 }
 
 .menu-items a {
