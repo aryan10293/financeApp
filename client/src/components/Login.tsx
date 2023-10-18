@@ -4,14 +4,30 @@ import { Link } from 'react-router-dom'
 function Login() {
     const [email,setEmail] = React.useState<string>('')
     const [password,setPassword] = React.useState<string>('')
+    const [name, setName] = React.useState<string>('')
     const [confirmPassword,setConfirmPassword] = React.useState<string>('')
-    const handleSubmit = (e:any) => {
-        e.preventDefault()
-        console.log({
-            1: email,
-            2: password,
-            3: confirmPassword,
+    const handleClick = async(e: any) => {
+       e.preventDefault()
+        try {
+        const reg = await fetch('http://localhost:2014/createaccount',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+            userName: name,
+            email: email,
+            password: password,
+            confirmPassword: password
+          }),
         })
+        const data = await reg.json()
+        console.log(data)
+        setPassword('')
+        setEmail('')
+        setName('')
+       // window.location.href = "/"
+        } catch(err) {
+            console.error(err)
+        }
     }
     return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -24,9 +40,9 @@ function Login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-green-900 md:text-2xl dark:text-green">
               Create an account
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-4 md:space-y-6" onSubmit={handleClick}>
               <div>
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
                 <input
                   type="email"
                   id="email"
@@ -35,6 +51,18 @@ function Login() {
                   required
                   value={email}
                   onChange={(e)=> {setEmail(e.target.value)}}
+                />
+              </div>
+              <div>
+                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Username</label>
+                <input
+                  type="name"
+                  id="name"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="aryan10293"
+                  required
+                  value={name}
+                  onChange={(e)=> {setName(e.target.value)}}
                 />
               </div>
               <div>
@@ -61,7 +89,7 @@ function Login() {
                   onChange={(e)=> {setConfirmPassword(e.target.value)}}
                 />
               </div>
-              <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+              <button type="submit" className="w-full text-black bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                 Create an account
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">

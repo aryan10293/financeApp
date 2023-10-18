@@ -1,5 +1,6 @@
 const passport = require("passport");
 const validator = require("validator");
+const jwt = require('jsonwebtoken');
 const User = require("../model/User");
 
 module.exports = {
@@ -59,10 +60,11 @@ module.exports = {
                 }
                 //return next()
                 // res.redirect("/profile");
-                console.log('login was good')
-                res.send({
-                  "newUser": user
-                })
+                console.log(user)
+                const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+                res.send(
+                  { token, newUser: user }
+                )
               });
             });
           }

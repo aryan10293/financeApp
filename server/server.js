@@ -24,18 +24,10 @@ connectDB();
 
 
 app.use(cors({
-  origin: 'http://localhost:2014',
+  origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
-const server = http.createServer(app)
-const io = new Server(server, {
-  cors: {
-    origin: 'http://localhost:2014',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-  }
-})
 //Body Parsing
 app.use(express.urlencoded({ extended: true,  limit: '25mb'}));
 app.use(express.json({limit: '25mb'}));
@@ -61,8 +53,11 @@ app.use(
   app.use(flash());
 
   
-   app.use("/", mainRoutes);
+  app.use("/", mainRoutes);
 
-  server.listen(process.env.PORT, () => {
+
+
+  app.listen(process.env.PORT, () => {
     console.log("Server is running, you better catch it!");
+
   });
