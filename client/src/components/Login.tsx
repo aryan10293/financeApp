@@ -44,7 +44,7 @@ function Login() {
             const data = await reg.json();
             console.log(data);
             } else {
-            throw new Error('Failed to fetch data');
+            throw new Error('Failed to get data');
             }
         } catch (error) {
             console.error('Error:', error);
