@@ -2,7 +2,7 @@ const passport = require("passport");
 const validator = require("validator");
 const jwt = require('jsonwebtoken');
 const User = require("../model/User");
-
+require("dotenv").config({ path: "./config/.env" });
 module.exports = {
     getCreateAccount: (req,res) => {
 
@@ -60,7 +60,7 @@ module.exports = {
                 }
                 //return next()
                 // res.redirect("/profile");
-                console.log(user)
+                console.log(process.env.SECRET_KEY)
                 const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
                 res.send(
                   { token, newUser: user }

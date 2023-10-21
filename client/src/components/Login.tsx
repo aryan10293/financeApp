@@ -21,7 +21,6 @@ function Login() {
         })
         const data = await reg.json()
         console.log(data)
-        setPassword('')
         setEmail('')
         setName('')
         localStorage.setItem('token', data.token)
@@ -32,11 +31,12 @@ function Login() {
     }
     const holdOn = async () => {
         try {
+            console.log(localStorage.getItem('token'))
             const reg = await fetch('http://localhost:2014/getuser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `${localStorage.getItem('token')}`
             }
             });
 
