@@ -24,7 +24,7 @@ function Login() {
         setEmail('')
         setName('')
         localStorage.setItem('token', data.token)
-       // window.location.href = "/"
+        window.location.href = "/"
         } catch(err) {
             console.error(err)
         }
