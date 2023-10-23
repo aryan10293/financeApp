@@ -2,6 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 function Nav(props:any) {
     let idkWhatImDoing = "md:text-green-700 md:dark:text-green-500"
+    const logout = () => {
+        localStorage.clear()
+        window.location.href = '/login'
+    }
   return (
         <nav className="bg-white dark:bg-gray-900 w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -30,6 +34,9 @@ function Nav(props:any) {
                     </li>
                     <li>
                     <Link to="/profile" className={`block py-2 pl-3 pr-4 text-gray-900 ${props.page === 'profile' ? idkWhatImDoing : null } rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}>Profile</Link>
+                    </li>
+                    <li>
+                    <Link to="/login" onClick={logout} className={`block py-2 pl-3 pr-4 text-gray-900 ${props.page === 'profile' ? idkWhatImDoing : null } rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}>Logout</Link>
                     </li>
                 </ul>
                 </div>
