@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 function TranscationForm() {
     const [merchant, setMercant] = React.useState<string>('')
-    const [category, setCategory] = React.useState<string>('')
+    const [category, setCategory] = React.useState<string>('Housing')
     const [cost, setCost] = React.useState<string>('208.54')
+    const [userId, setUserId] = React.useState<string>('1234567654323456')
     const spendingCategories = [
         'Housing',
         'Transportation',
@@ -16,9 +17,29 @@ function TranscationForm() {
         'Personal Care',
         'Education'
     ];
-    const Trans = (e:any) => {
+    const Trans = async (e:any) => {
         e.preventDefault()
-        console.log('lol')
+         try {
+        const reg = await fetch('http://localhost:2014/posttransaction',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': `${localStorage.getItem('token')}`},
+            body: JSON.stringify({
+            cost: cost,
+            category: category,
+            merchant: merchant,
+            userId: userId,
+            date: Date.now()
+          }),
+        })
+        const data = await reg.json()
+        console.log(data)
+        console.log(category)
+        setMercant('')
+        setCategory('')
+        setCost('')
+        } catch(err) {
+            console.error(err)
+        }
     }
   return (
     <section className="bg-gray-50">
@@ -59,7 +80,7 @@ function TranscationForm() {
               </div>
               <div>
                  <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Select Category</label>
-                <select>
+                <select onChange={(e) => setCategory(e.target.value)}>
                 {spendingCategories.map((category, index) => (
                     <option key={index} value={category}>
                         {category}

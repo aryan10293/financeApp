@@ -4,13 +4,13 @@ module.exports = {
     postTransactions: async (req,res) => {
         try{
             let transObj = {
-                userId: req.body.id,
+                userId: req.body.userId,
                 cost: req.body.cost,
                 merchant: req.body.merchant,
-                catagory: req.body.catagory,
-                date: req.bodybody.date
+                category: req.body.category,
+                date: req.body.date
             }
-           const createTransaction =  await Trans.create(Trans)
+           const createTransaction =  await Trans.create(transObj)
             if (!createTransaction) {
             return res.status(404).json({ error: 'Transaction not posted' });
         }
