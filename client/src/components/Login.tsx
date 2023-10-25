@@ -120,7 +120,6 @@ function Login() {
           </div>
         </div>
       </div>
-      <a onClick={holdOn}> A random button dont mind it</a>
     </section>
   )
 }
