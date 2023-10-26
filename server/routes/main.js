@@ -9,4 +9,5 @@ router.post('/createaccount', authController.postCreateAccount)
 router.use(token);
 router.get('/getuser',  authController.checkUser)
 router.post('/posttransaction',  transController.postTransactions)
+router.get('/gettransactions/:id/:time', transController.getTransacations)
 module.exports = router;

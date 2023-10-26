@@ -20,4 +20,11 @@ module.exports = {
             console.error(err)
         }
     },
+    getTransacations: async (req,res) => {
+        try {
+            console.log(req.params.id)
+        } catch (error) {
+            console.error(error)
+        }
+    },
 }
