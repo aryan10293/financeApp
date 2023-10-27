@@ -1,5 +1,30 @@
 const Trans = require("../model/Transaction");
+const getObjectsWithinCurrentWeek = (transacationData) => {
+    const currentDate = new Date();
+    const currentDay = currentDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    const millisecondsInADay = 24 * 60 * 60 * 1000;
 
+    // Calculate the start timestamp of the current week (Sunday)
+    const startOfWeek = currentDate.getTime() - currentDay * millisecondsInADay;
+
+    // Filter objects within the current week
+    const objectsWithinCurrentWeek = transacationData.filter(item => {
+        return item.date >= startOfWeek;
+    });
+
+    return objectsWithinCurrentWeek;
+};
+const getObjectsWithinSameDay = (transacationData) => {
+  const currentDate = new Date();
+  const startOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0).getTime();
+
+  // Filter objects within the same day
+  const objectsWithinSameDay = transacationData.filter(item => {
+    return item.date >= startOfDay;
+  });
+
+  return objectsWithinSameDay;
+};
 module.exports = {
     postTransactions: async (req,res) => {
         try{
@@ -21,15 +46,17 @@ module.exports = {
         }
     },
     getTransacations: async (req,res) => {
+        let coolio = await Trans.find({userId: req.params.id})
+        //console.log(coolio)
         try {
             if(req.params.time === 'Daily'){
-
+                res.send(getObjectsWithinSameDay(coolio))
             } else if(req.params.time === 'Weekly'){
-
+                res.send(getObjectsWithinCurrentWeek(coolio))
             } else if(req.params.time === 'Monthly'){
 
             } else {
-                
+
             }
             console.log(req.params.id)
         } catch (error) {
