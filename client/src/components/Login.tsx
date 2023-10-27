@@ -29,27 +29,7 @@ function Login() {
             console.error(err)
         }
     }
-    const holdOn = async () => {
-        try {
-            console.log(localStorage.getItem('token'))
-            const reg = await fetch('http://localhost:2014/getuser', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `${localStorage.getItem('token')}`
-            }
-            });
-
-            if (reg.ok) {
-            const data = await reg.json();
-            console.log(data);
-            } else {
-            throw new Error('Failed to get data');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    ;
     return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

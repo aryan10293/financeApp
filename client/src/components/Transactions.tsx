@@ -4,6 +4,7 @@ import Nav from './Nav'
 function Transactions() {
   const [time, setTime] = React.useState<string>('Daily')
   const [data, setData] = React.useState<any>({}) // change that any into a interface for type strictness
+  const userId = 1234567654323456
   let amount = 206
   let date = '09/23/22'
   let category = 'food'
@@ -12,13 +13,13 @@ function Transactions() {
   React.useEffect( () => {
     async function fetchData (){
       try {
-        const getTransData = await fetch('http://localhost:2014/posttransaction',{
+        const getTransData = await fetch(`http://localhost:2014/posttransaction/${userId}/${time}`,{
             method: 'GET',
             headers: {'Content-Type': 'application/json', 'Authorization': `${localStorage.getItem('token')}`},
           })
 
-        const data = await getTransData.json()
-        console.log(data)
+        const info = await getTransData.json()
+        console.log(info)
       } catch (error) {
         console.log(error)
       }

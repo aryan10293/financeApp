@@ -22,6 +22,15 @@ module.exports = {
     },
     getTransacations: async (req,res) => {
         try {
+            if(req.params.time === 'Daily'){
+
+            } else if(req.params.time === 'Weekly'){
+
+            } else if(req.params.time === 'Monthly'){
+
+            } else {
+                
+            }
             console.log(req.params.id)
         } catch (error) {
             console.error(error)
