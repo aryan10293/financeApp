@@ -25,6 +25,24 @@ const getObjectsWithinSameDay = (transacationData) => {
 
   return objectsWithinSameDay;
 };
+const getObjectsWithinCurrentMonth = (transacationData) => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth(); // 0 = January, 1 = February, ..., 11 = December
+
+  // Calculate the start timestamp of the current month (1st day of the month)
+  const startOfMonth = new Date(currentYear, currentMonth, 1).getTime();
+
+  // Calculate the end timestamp of the current month (1st day of the next month)
+  const nextMonth = new Date(currentYear, currentMonth + 1, 1).getTime();
+
+  // Filter objects within the current month
+  const objectsWithinCurrentMonth = transacationData.filter(item => {
+    return item.date >= startOfMonth && item.date < nextMonth;
+  });
+
+  return objectsWithinCurrentMonth;
+};
 module.exports = {
     postTransactions: async (req,res) => {
         try{
@@ -54,9 +72,9 @@ module.exports = {
             } else if(req.params.time === 'Weekly'){
                 res.send(getObjectsWithinCurrentWeek(coolio))
             } else if(req.params.time === 'Monthly'){
-
+                res.send(getObjectsWithinCurrentMonth(coolio))
             } else {
-
+                res.send(coolio)
             }
             console.log(req.params.id)
         } catch (error) {
