@@ -7,6 +7,26 @@ import LoginDisplay from './pages/LoginDisplay';
 import SignupDisplay from './pages/SignupDisplay';
 import ReportDisplay from './pages/ReportDisplay';
 function App() {
+  const [userData,setUserData] = React.useState<any[]>([])
+  React.useEffect(() => {
+    const fetchData = async() => {
+      try {
+        const reg = await fetch(`http://localhost:2014/getuser/${localStorage.getItem('token')}`,{
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', 'Authorization': `${localStorage.getItem('token')}`},
+        })
+        const data = await reg.json()
+        console.log(data)
+        if(data.success){
+          setUserData(data.userinfo)
+        }
+        } catch(err) {
+            console.error(err)
+        }
+    }
+    fetchData()
+  }, [])
+  console.log(userData)
   return (
     <Routes>
           <Route 

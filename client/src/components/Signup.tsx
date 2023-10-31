@@ -3,7 +3,27 @@ import { Link } from 'react-router-dom'
 function Signup() {
     const [email,setEmail] = React.useState<string>('')
     const [password,setPassword] = React.useState<string>('')
-    const [confirmPassword,setConfirmPassword] = React.useState<string>('')
+    const handleClick = async(e: any) => {
+       e.preventDefault()
+        try {
+        const reg = await fetch('http://localhost:2014/login',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        })
+        const data = await reg.json()
+        console.log(data)
+        setEmail('')
+        setPassword('')
+        localStorage.setItem('token', data.token)
+        window.location.href = "/"
+        } catch(err) {
+            console.error(err)
+        }
+    }
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -15,7 +35,7 @@ function Signup() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-green-900 md:text-2xl dark:text-green">
               Login
             </h1>
-            <form className="space-y-4 md:space-y-6">
+            <form onSubmit={handleClick} className="space-y-4 md:space-y-6">
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                 <input

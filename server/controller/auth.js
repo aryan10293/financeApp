@@ -58,9 +58,6 @@ module.exports = {
                 if (err) {
                   return next(err);
                 }
-                //return next()
-                // res.redirect("/profile");
-                console.log(process.env.SECRET_KEY)
                 const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
                 res.send(
                   { token, newUser: user }
@@ -100,7 +97,10 @@ module.exports = {
             }
             req.flash("success", { msg: "Success! You are logged in." });
             
-             res.status(200).json(req.user)
+             const token = jwt.sign({ sub: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+             res.send(
+                  { token, newUser: user }
+                )
           });
         })(req, res, next);
       },
@@ -116,11 +116,17 @@ module.exports = {
         });
       },
       checkUser:  async (req,res) => {
-        try {
-            const getUser = await User.find({_id: req.params.id})
-            res.send( getUser )
-        } catch (error) {
-          console.log(error)
-        }
+        jwt.verify(req.params.token, process.env.SECRET_KEY, async (err, decoded) => {
+          if (err) {
+            // Token is invalid or expired
+            // Handle unauthorized access
+            res.status(401).json({ success: false, message: 'Invalid or expired token. Please log in again.' });
+          } else {
+            const userId = decoded.sub;
+            // Fetch user account data from the database based on userId
+            let thisIsAwe = await User.find({_id: userId}) // user info if token is not expired
+            res.status(200).json({success: true, message:'this shit working brother enjoy yourself youre loggen in', userinfo: thisIsAwe})
+          }
+        });
     }
 }
