@@ -7,7 +7,7 @@ function Transactions() {
   const [merchant, setMercant] = React.useState<string>('')
   const [category, setCategory] = React.useState<string>('Housing')
   const [cost, setCost] = React.useState<string>('208.54')
-  const [userId, setUserId] = React.useState<string>('1234567654323456')
+  const userId =  '1234567654323456'
   const spendingCategories = [
       'Housing',
       'Transportation',
