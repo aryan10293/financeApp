@@ -37,6 +37,7 @@ function TranscationForm() {
         setMercant('')
         setCategory('')
         setCost('')
+        window.location.reload()
         } catch(err) {
             console.error(err)
         }

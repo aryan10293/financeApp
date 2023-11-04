@@ -5,7 +5,6 @@ import TranscationForm from './TranscationForm';
 function Nav(props:any) {
     const [isPopupVisible, setPopupVisible] = React.useState<boolean>(false);
     let idkWhatImDoing = "md:text-green-700 md:dark:text-green-500"
-    let wtf = {'display': 'none'}
     const logout = () => {
         localStorage.clear()
         window.location.href = '/login'
