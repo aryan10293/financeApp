@@ -20,7 +20,7 @@ module.exports = {
         }, (err, response) => {
             if (err) {
             console.error(err);
-            return res.status(500).send('Error generating link token');
+            return res.status(500).send('Im fucked if i dont get more consistent');
             }
             const linkToken = response.link_token;
             res.json({ link_token: linkToken });
