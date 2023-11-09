@@ -12,6 +12,7 @@ const connectDB = require("./config/database");
 const mainRoutes = require("./routes/main");
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const plaid = require('plaid');
 //const tweetRoutes = require("./routes/tweet");
 
 //Use .env file in config folder

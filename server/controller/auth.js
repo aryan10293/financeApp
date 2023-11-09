@@ -13,8 +13,6 @@ module.exports = {
   },
     postCreateAccount: (req, res, next) => {
       console.log(req.body)
-      // console.log(req.body.userName)
-      // console.log(req.body.email)
         const validationErrors = [];
         if (!validator.isEmail(req.body.email))
           validationErrors.push({ msg: "Please enter a valid email address." });
@@ -68,7 +66,6 @@ module.exports = {
         );
       },
       postLogin: (req,res,next) => {
-        console.log('cool')
         const validationErrors = [];
         if (!validator.isEmail(req.body.email))
           validationErrors.push({ msg: "Please enter a valid email address." });
