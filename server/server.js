@@ -1,19 +1,26 @@
-const express = require("express");
+import express from "express";
+import http from 'http';
+import { Server } from 'socket.io';
+import mongoose from "mongoose";
+import passport from "passport";
+import session from "express-session";
+import connectMongo from "connect-mongo";
+import flash from "express-flash";
+import logger from "morgan";
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import plaid from 'plaid';
+
 const app = express();
-const http = require('http')
-const { Server } = require('socket.io')
-const mongoose = require("mongoose");
-const passport = require("passport");
-const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
-const flash = require("express-flash");
-const logger = require("morgan");
-const connectDB = require("./config/database");
-const mainRoutes = require("./routes/main");
-const cors = require('cors')
-const cookieParser = require('cookie-parser')
-const plaid = require('plaid');
-//const tweetRoutes = require("./routes/tweet");
+const server = http.createServer(app);
+const io = new Server(server);
+const MongoStore = connectMongo(session);
+
+// Your application logic goes here...
+
+// Import other modules (CommonJS syntax)
+import connectDB from './config/database.js';
+import mainRoutes from "./routes/main.js";
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });

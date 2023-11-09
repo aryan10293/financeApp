@@ -1,13 +1,15 @@
 import React from 'react'
 import { Fragment } from 'react'
 import Nav from './Nav'
+import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
 function Home() {
+  
   const [userData, setUserData] = React.useState<any[]>([])
   const testing = async (e:any) => {
     e.preventDefault()
     try {
       const response = await fetch(`http://localhost:2014/getplaidtoken/${localStorage.getItem('token')}`, {
-        method: 'GET',
+        method: 'POST',
         headers: {'Content-Type': 'application/json', 'Authorization': `${localStorage.getItem('token')}`}
       })
       const info = await response.json()
