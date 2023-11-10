@@ -1,7 +1,7 @@
 import React from 'react'
 import { Fragment } from 'react'
 import Nav from './Nav'
-import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
+import { Configuration, PlaidEnvironments } from 'plaid';
 function Home() {
   
   const [userData, setUserData] = React.useState<any[]>([])

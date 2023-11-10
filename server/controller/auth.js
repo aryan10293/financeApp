@@ -1,9 +1,8 @@
-const passport = require("passport");
-const validator = require("validator");
-const jwt = require('jsonwebtoken');
-const User = require("../model/User");
-require("dotenv").config({ path: "./config/.env" });
-module.exports = {
+import passport from "passport"
+import validator from "validator";
+import jwt from "jsonwebtoken";
+import User from "../model/User.js";
+let auth = {
     getCreateAccount: (req,res) => {
 
         res.render("create.ejs")
@@ -127,3 +126,4 @@ module.exports = {
         });
     }
 }
+export default auth

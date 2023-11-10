@@ -1,16 +1,17 @@
 import express from "express";
 const router = express.Router();
-const authController = require("../controller/auth")
-const transController = require("../controller/Trans")
-const plaidController = require("../controller/Plaid")
-const token = require("../middleware/jwt")
+import auth from "../controller/auth.js"
+import trans from "../controller/Trans.js"
+import plaidThing from "../controller/Plaid.js"
+import authenticateToken from "../middleware/jwt.js";
+
 
 // random routes and shit go here 
-router.post('/createaccount', authController.postCreateAccount)
-router.post('/login', authController.postLogin)
-router.use(token);
-router.get('/getuser/:token',  authController.checkUser)
-router.post('/getplaidtoken/:token', plaidController.createPlaidToken)
-router.get('/gettransactions/:id/:time', transController.getTransacations)
-router.post('/posttransaction',  transController.postTransactions)
+router.post('/createaccount', auth.postCreateAccount)
+router.post('/login', auth.postLogin)
+router.use(authenticateToken);
+router.get('/getuser/:token',  auth.checkUser)
+router.post('/getplaidtoken/:token', plaidThing.createPlaidToken)
+router.get('/gettransactions/:id/:time', trans.getTransacations)
+router.post('/posttransaction',  trans.postTransactions)
 export default router;

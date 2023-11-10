@@ -10,7 +10,8 @@ import logger from "morgan";
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import plaid from 'plaid';
-
+import configurePassport from "./config/passport.js";
+import dotenv from 'dotenv'
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
@@ -23,7 +24,7 @@ import connectDB from './config/database.js';
 import mainRoutes from "./routes/main.js";
 
 //Use .env file in config folder
-require("dotenv").config({ path: "./config/.env" });
+dotenv.config({ path: './config/.env' });
 
 // Passport config
 
@@ -56,7 +57,7 @@ app.use(
   // Passport middleware
   app.use(passport.initialize());
   app.use(passport.session());
-  require("./config/passport")(passport);
+  configurePassport(passport);
   //Use flash messages for errors, info, ect...
   app.use(flash());
 

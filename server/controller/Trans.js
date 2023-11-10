@@ -1,4 +1,4 @@
-const Trans = require("../model/Transaction");
+import Transaction from "../model/Transaction.js";
 const getObjectsWithinCurrentWeek = (transacationData) => {
     const currentDate = new Date();
     const currentDay = currentDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
@@ -43,7 +43,7 @@ const getObjectsWithinCurrentMonth = (transacationData) => {
 
   return objectsWithinCurrentMonth;
 };
-module.exports = {
+const trans = {
     postTransactions: async (req,res) => {
         try{
             let transObj = {
@@ -82,3 +82,4 @@ module.exports = {
         }
     },
 }
+export default trans

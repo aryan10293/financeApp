@@ -1,19 +1,20 @@
-const plaid = require('plaid');
-const { environments } = plaid;
-const Trans = require("../model/Transaction");
-const User = require("../model/User");
-const jwt = require('jsonwebtoken');
-const plaidClient = new plaid.Client({
-  clientID: process.env.CLIENT_ID,
-  secret: process.env.SANDBOX,
-  env: plaid.environments.sandbox,
-  options: {
-    version: '2022-01-01' // specify the desired API version
-  }
+import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
+import Transaction from '../model/Transaction.js';
+import User from '../model/User.js';
+import jwt from 'jsonwebtoken';
+const configuration = new Configuration({
+  basePath: PlaidEnvironments.sandbox,
+  baseOptions: {
+    headers: {
+      'PLAID-CLIENT-ID': process.env.CLIENT_ID,
+      'PLAID-SECRET': process.env.SANDBOX,
+      'Plaid-Version': '2020-09-14',
+    },
+  },
 });
 
+const plaidClient = new PlaidApi(configuration);
 console.log(plaidClient)
-
  function getUserId(token){
   jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
           if (err) {
@@ -31,7 +32,7 @@ console.log(plaidClient)
           }
       })
  }
-module.exports = {
+const plaidThing = {
     createPlaidToken: async  (req,res) => {
       let clientID; 
       jwt.verify(req.params.token, process.env.SECRET_KEY, async (err, decoded) => {
@@ -68,7 +69,7 @@ module.exports = {
             })
     }
 }
-
+export default plaidThing
 // jwt.verify(req.params.token, process.env.SECRET_KEY, async (err, decoded) => {
 //           if (err) {
 //             // Token is invalid or expired
