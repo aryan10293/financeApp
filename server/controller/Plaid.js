@@ -2,6 +2,9 @@ import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
 import Transaction from '../model/Transaction.js';
 import User from '../model/User.js';
 import jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
+dotenv.config();
+dotenv.config({ path: './config/.env' });
 const configuration = new Configuration({
   basePath: PlaidEnvironments.sandbox,
   baseOptions: {
@@ -14,7 +17,7 @@ const configuration = new Configuration({
 });
 
 const plaidClient = new PlaidApi(configuration);
-console.log(plaidClient)
+console.log(plaidClient.configuration)
  function getUserId(token){
   jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
           if (err) {
@@ -51,22 +54,30 @@ const plaidThing = {
       })
 
       
-         plaidClient.createPublicToken({
-            user: {
-            client_user_id: clientID, // Generate a unique user ID for each user
-            },
-            client_name: 'Drej finance app',
-            products: ['auth', 'transactions'], // Specify the desired products (e.g., 'auth', 'transactions')
-            country_codes: ['US'], // Specify the country codes
-            language: 'en', // Specify the language
-        }, (err, response) => {
-            if (err) {
-            console.error(err);
-            return res.status(500).send(err);
-            }
-            const linkToken = response.link_token;
-            res.json({ link_token: linkToken });
-            })
+        // plaidClient.sandboxPublicTokenCreate({
+        //     user: {
+        //     client_user_id: clientID, // Generate a unique user ID for each user
+        //     },
+        //     client_name: 'Drej finance app',
+        //     products: ['auth', 'transactions'], // Specify the desired products (e.g., 'auth', 'transactions')
+        //     country_codes: ['US'], // Specify the country codes
+        //     language: 'en', // Specify the language
+        // }, (err, response) => {
+        //     if (err) {
+        //     console.error(err);
+        //     return res.status(500).send(err);
+        //     }
+        //     const linkToken = response.link_token;
+        //     res.json({ link_token: linkToken });
+        //     })
+        const request = {
+          institution_id: 'ins_109508',
+          initial_products: ['auth', 'transactions'],
+        };    
+
+        const response = await plaidClient.sandboxPublicTokenCreate(request);
+        let linkToken =  response.data.public_token
+        res.json({ link_token: linkToken });
     }
 }
 export default plaidThing
