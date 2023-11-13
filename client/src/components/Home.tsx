@@ -1,10 +1,11 @@
 import React from 'react'
 import { Fragment } from 'react'
 import Nav from './Nav'
-import { Configuration, PlaidEnvironments, Plaid } from 'plaid';
+import { Configuration, PlaidEnvironments } from 'plaid';
 function Home() {
   const [linkToken, setLinkToken] = React.useState<any>('');
   const [userData, setUserData] = React.useState<any[]>([])
+
   const testing = async (e:any) => {
     e.preventDefault()
     try {
