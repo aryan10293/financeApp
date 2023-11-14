@@ -15,24 +15,24 @@ function Home() {
       })
       const info = await response.json()
       console.log(info)
-      if (window.Plaid) {
-      const handler = window.Plaid.create({
-        token: info.link_token,
-        onSuccess: handleSuccess,
-        onExit: handleExit,
-        // Add other options as needed
-      });
+    //   if (window.Plaid) {
+    //   const handler = window.Plaid.create({
+    //     token: info.link_token,
+    //     onSuccess: handleSuccess,
+    //     onExit: handleExit,
+    //     // Add other options as needed
+    //   });
 
-      // Open Plaid Link
-      handler.open();
-    }
+    //   // Open Plaid Link
+    //   handler.open();
+    // }
 
-      // Open Plaid Link
-      handler.open();
-    }
-    } catch (error) {
-      console.error(error)
-    }
+    //   // Open Plaid Link
+    //   handler.open();
+    // }
+    // } catch (error) {
+    //   console.error(error)
+    // }
   }
   return (
     <>
