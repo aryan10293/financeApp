@@ -77,7 +77,7 @@ const plaidThing = {
     },
     auth: async(req,res) => {
       try {
-       const access_token = req.body.access_token;
+       const access_token = req.body.access;
        const plaidRequest = {
            access_token: access_token,
        };

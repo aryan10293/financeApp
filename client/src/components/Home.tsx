@@ -18,17 +18,58 @@ function Home() {
       })
 
       let exchange = await  acessToken.json()
-      console.log(exchange)
+      console.log(exchange.accessToken)
+
+      let authToken = await fetch(`http://localhost:2014/auth`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Authorization': `${localStorage.getItem('token')}`},
+        body: JSON.stringify({access: exchange.accessToken})
+      })
+
+      let auth = await authToken.json()
+      console.log(auth)
+
       // console.log("accessToken", accessToken.data);
       // const auth = await axios.post("/auth", {access_token: accessToken.data.accessToken});
       // console.log("auth data ", auth.data);
       //setAccount(auth.data.numbers.ach[0]);
+      // const { open, ready } = usePlaidLink({
+      //   token: linkToken,
+      //   onSuccess: (publicToken, metadata) => {
+      //     setPublicToken(publicToken);
+      //     console.log("success", publicToken, metadata);
+      //     // send public_token to server
+      //   },
+      // });
     }
-    fetchData()
-  }, [publicToken])
-  const handleSuccess = (publicToken: string, metadata: any) => {
+    // fetchData()
+  }, [publicToken, linkToken])
+  const handleSuccess = async (publicToken: string, metadata: any) => {
     // Handle the obtained public token
     console.log('Public Token:', publicToken);
+      try {
+    // Send the public token to your server for exchange
+    const response = await fetch('http://localhost:2014/exchangetoken', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+         'Authorization': `${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({ publicToken }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+      // console.log('Access Token:', data.access_token);
+      // console.log('Item ID:', data.item_id);
+    } else {
+      console.error('Failed to exchange public token:', response.statusText);
+    }
+    } catch (error) {
+      console.error('Error exchanging public token:', error);
+    }
+
   };
    const handleExit = (error: any, metadata: any) => {
     // Handle the exit event
@@ -60,6 +101,8 @@ function Home() {
           //     // send public_token to server
           //   },
           // });
+
+
       } catch(err) {
         console.log(err)
       }
@@ -73,8 +116,15 @@ function Home() {
       This is a money green background.
     </h1>
     <button onClick={testing}>click me for a test</button>
+    {/* publicToken ? (<PlaidAuth publicToken={publicToken} />) : (
+      <button onClick={() => open()} disabled={!ready}>
+        Connect a bank account
+      </button> */}
     </>
   )
 }
 
 export default Home
+
+
+/// turn the linktoken stuff into a use effect and lets see what that does tomorrow 
