@@ -52,24 +52,6 @@ const plaidThing = {
             return 'this is cool'
           }
       })
-
-      
-        // plaidClient.sandboxPublicTokenCreate({
-        //     user: {
-        //     client_user_id: clientID, // Generate a unique user ID for each user
-        //     },
-        //     client_name: 'Drej finance app',
-        //     products: ['auth', 'transactions'], // Specify the desired products (e.g., 'auth', 'transactions')
-        //     country_codes: ['US'], // Specify the country codes
-        //     language: 'en', // Specify the language
-        // }, (err, response) => {
-        //     if (err) {
-        //     console.error(err);
-        //     return res.status(500).send(err);
-        //     }
-        //     const linkToken = response.link_token;
-        //     res.json({ link_token: linkToken });
-        //     })
         const request = {
           institution_id: 'ins_109508',
           initial_products: ['auth', 'transactions'],
@@ -78,6 +60,33 @@ const plaidThing = {
         const response = await plaidClient.sandboxPublicTokenCreate(request);
         let linkToken =  response.data.public_token
         res.json({ link_token: linkToken });
+    },
+    exchangeToken: async(req,res) => {
+      const publicToken = req.body.public;
+      try {
+          const plaidResponse = await plaidClient.itemPublicTokenExchange({
+              public_token: publicToken,
+          });
+          // These values should be saved to a persistent database and
+          // associated with the currently signed-in user
+          const accessToken = plaidResponse.data.access_token;
+          res.json({ accessToken });
+      } catch (error) {
+          res.status(500).send("failed");
+      }
+    },
+    auth: async(req,res) => {
+      try {
+       const access_token = req.body.access_token;
+       const plaidRequest = {
+           access_token: access_token,
+       };
+       const plaidResponse = await plaidClient.authGet(plaidRequest);
+       res.json(plaidResponse.data);
+      } catch (e) {
+          res.status(500).send("failed");
+      }
+
     }
 }
 export default plaidThing

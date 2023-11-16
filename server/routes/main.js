@@ -11,7 +11,9 @@ router.post('/createaccount', auth.postCreateAccount)
 router.post('/login', auth.postLogin)
 router.use(authenticateToken);
 router.get('/getuser/:token',  auth.checkUser)
-router.get('/getplaidtoken/:token', plaidThing.createPlaidToken)
+router.post('/getplaidtoken/:token', plaidThing.createPlaidToken)
+router.post('/exchangetoken', plaidThing.exchangeToken)
+router.post('auth', plaidThing.auth)
 router.get('/gettransactions/:id/:time', trans.getTransacations)
 router.post('/posttransaction',  trans.postTransactions)
 export default router;
