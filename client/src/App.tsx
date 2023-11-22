@@ -16,7 +16,7 @@ function App() {
             headers: {'Content-Type': 'application/json', 'Authorization': `${localStorage.getItem('token')}`},
         })
         const data = await reg.json()
-        console.log(data)
+    //    console.log(data)
         if(data.success){
           setUserData(data.userinfo)
         }
@@ -26,7 +26,6 @@ function App() {
     }
     fetchData()
   }, [])
-  console.log(userData)
   return (
     <Routes>
           <Route 
