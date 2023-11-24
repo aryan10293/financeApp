@@ -37,8 +37,9 @@ function Home() {
     },
   });
 
-    React.useEffect(() => {
-      fetchLinkToken(); // Fetch link token when the component mounts
+   React.useEffect( () => {
+        const lol = () => { fetchLinkToken();}
+        lol()
     }, []);
   return (
     <>
@@ -48,7 +49,7 @@ function Home() {
     <h1 className="bg-money-green text-white">
       This is a money green background.
     </h1>
-    {linkToken ? <button onClick={open()} disabled={!ready}>Connect to bank</button> : (
+    {linkToken ? <button onClick={() =>  open()} disabled={!ready}>Connect to bank</button> : (
       null
     )}
     {/* {publicToken ? (<PlaidAuth publicToken={publicToken} />) : (
